@@ -15,7 +15,7 @@ router.post('/categories/save', (req, res) => {
             title: title,
             slug: slugify(title)
         }).then(() =>{
-            res.redirect('/');
+            res.redirect('/admin/categories');
         })
     }else{
         res.redirect('/admin/categories/new')
@@ -64,6 +64,19 @@ router.get('/admin/categories/edit/:id', (req, res) => {
         }
     }).catch(erro => {
         res.redirect('admin/categories');
+    })
+});
+
+router.post('/categories/update', (req, res) => {
+    var id = req.body.id;
+    var title =  req.body.title;
+
+    Category.update({title: title}, {
+        where: {
+            id: id
+        }
+    }).then(() =>{
+        res.redirect('/admin/categories');
     })
 });
 
