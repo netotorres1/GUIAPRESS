@@ -4,6 +4,12 @@ const connection = require('./database/database');
 
 const app = express();
 
+const categoriesController = require('./categorias/CategoriesController');
+const articlesController = require('./articles/ArticlesController');
+
+const Article = require('./articles/Article');
+const Category =  require('./categorias/Category');
+
 //view engine
 app.set('view engine', 'ejs');
 
@@ -22,6 +28,9 @@ connection
     }).catch((error) => {
     console.log(error);
 })
+
+app.use('/', categoriesController);
+app.use('/', articlesController);
 
 app.get('/', (req, res) => {
     res.render('index');
